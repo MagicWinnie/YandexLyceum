@@ -1,0 +1,64 @@
+class Figure:
+    def __init__(self, row, col, color):
+        self.row = row
+        self.col = col
+        self.color = color
+
+    def set_position(self, row1, col1):
+        if not self.correct_coords(row1, col1):
+            return
+        self.row = row1
+        self.col = col1
+
+    def get_color(self):
+        return self.color
+
+    def correct_coords(self, row, col):
+        return 0 <= row < 8 and 0 <= col < 8
+
+
+class Knight(Figure):
+    def __init__(self, row, col, color):
+        super().__init__(row, col, color)
+    
+    def char(self):
+        return 'N'
+
+    def can_move(self, row1, col1):
+        if not self.correct_coords(row1, col1):
+            return False
+        if abs(self.row - row1) == 2 and abs(self.col - col1) == 1 or\
+                abs(self.row - row1) == 1 and abs(self.col - col1) == 2:
+            return True
+        return False
+
+
+class Bishop(Figure):
+    def __init__(self, row, col, color):
+        super().__init__(row, col, color)
+    
+    def char(self):
+        return 'B'
+
+    def can_move(self, row1, col1):
+        if not self.correct_coords(row1, col1):
+            return False
+        if abs(self.row - row1) == abs(self.col - col1):
+            return True
+        return False
+
+
+class Queen(Figure):
+    def __init__(self, row, col, color):
+        super().__init__(row, col, color)
+    
+    def char(self):
+        return 'Q'
+
+    def can_move(self, row1, col1):
+        if not self.correct_coords(row1, col1):
+            return False
+        if abs(self.row - row1) == abs(self.col - col1) or\
+                self.row == row1 or self.col == col1:
+            return True
+        return False
